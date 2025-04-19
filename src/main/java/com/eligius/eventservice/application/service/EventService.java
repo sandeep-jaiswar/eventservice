@@ -14,7 +14,22 @@ public class EventService {
     }
 
     public void publishEvent(String eventType, String eventKey, String eventValue) {
+        // Validate input parameters
+        if (eventType == null || eventType.isEmpty()) {
+            throw new IllegalArgumentException("Event type cannot be null or empty");
+        }
+        if (eventKey == null || eventKey.isEmpty()) {
+            throw new IllegalArgumentException("Event key cannot be null or empty");
+        }
+        if (eventValue == null) {
+            throw new IllegalArgumentException("Event value cannot be null");
+        }
+
         Event event = new Event(eventType, eventKey, eventValue);
-        publisher.publish(event);
+        try {
+            publisher.publish(event);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to publish event: " + e.getMessage(), e);
+        }
     }
 }

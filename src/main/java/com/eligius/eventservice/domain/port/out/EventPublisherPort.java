@@ -1,4 +1,4 @@
-package com.eligius.eventservice.application.port.out;
+package com.eligius.eventservice.domain.port.out;
 
 import com.eligius.eventservice.domain.model.Event;
 

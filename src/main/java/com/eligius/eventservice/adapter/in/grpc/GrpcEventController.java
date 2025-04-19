@@ -24,8 +24,6 @@ public class GrpcEventController extends EventServiceGrpc.EventServiceImplBase {
     @Override
     public void sendEvent(EventRequest request, StreamObserver<EventResponse> responseObserver) {
         try {
-    public void sendEvent(EventRequest request, StreamObserver<EventResponse> responseObserver) {
-        try {
             // Validate request parameters
             if (request.getType() == null || request.getType().isEmpty()) {
                 responseObserver.onError(Status.INVALID_ARGUMENT

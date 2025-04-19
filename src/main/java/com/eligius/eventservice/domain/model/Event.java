@@ -5,7 +5,7 @@ public class Event {
     private String eventKey;
     private String eventValue;
 
-    public Event(String eventType, String eventKey, String eventValue) {
+    public Event(String eventKey, String eventType, String eventValue) {
         this.eventKey = eventKey;
         this.eventType = eventType;
         this.eventValue = eventValue;

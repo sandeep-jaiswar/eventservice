@@ -1,4 +1,4 @@
-name: Java CI with Gradle
+name: Java CI with Gradle and gRPC
 
 on:
   push:
@@ -27,6 +27,9 @@ jobs:
 
     - name: Make Gradle wrapper executable
       run: chmod +x ./gradlew
+
+    - name: Generate gRPC code from Protobuf
+      run: ./gradlew generateProto
 
     - name: Build with Gradle Wrapper
       run: ./gradlew build

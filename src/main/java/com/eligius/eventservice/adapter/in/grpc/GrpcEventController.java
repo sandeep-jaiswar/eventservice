@@ -24,6 +24,28 @@ public class GrpcEventController extends EventServiceGrpc.EventServiceImplBase {
     @Override
     public void sendEvent(EventRequest request, StreamObserver<EventResponse> responseObserver) {
         try {
+    public void sendEvent(EventRequest request, StreamObserver<EventResponse> responseObserver) {
+        try {
+            // Validate request parameters
+            if (request.getType() == null || request.getType().isEmpty()) {
+                responseObserver.onError(Status.INVALID_ARGUMENT
+                        .withDescription("Event type cannot be empty")
+                        .asRuntimeException());
+                return;
+            }
+            if (request.getKey() == null || request.getKey().isEmpty()) {
+                responseObserver.onError(Status.INVALID_ARGUMENT
+                        .withDescription("Event key cannot be empty")
+                        .asRuntimeException());
+                return;
+            }
+            if (request.getPayload() == null || request.getPayload().isEmpty()) {
+                responseObserver.onError(Status.INVALID_ARGUMENT
+                        .withDescription("Event payload cannot be empty")
+                        .asRuntimeException());
+                return;
+            }
+
             eventService.publishEvent(request.getType(), request.getKey(), request.getPayload());
 
             EventResponse response = EventResponse.newBuilder()

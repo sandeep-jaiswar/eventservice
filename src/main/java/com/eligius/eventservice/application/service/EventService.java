@@ -4,23 +4,8 @@ import org.springframework.stereotype.Service;
 
 import com.eligius.eventservice.application.port.out.EventPublisherPort;
 import com.eligius.eventservice.domain.model.Event;
-
-@Service
-public class EventService {
-    private final EventPublisherPort publisher;
-
-    public EventService(EventPublisherPort publisher) {
-        this.publisher = publisher;
-    }
-
-package com.eligius.eventservice.application.service;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
-
-import com.eligius.eventservice.application.port.out.EventPublisherPort;
-import com.eligius.eventservice.domain.model.Event;
 
 @Service
 public class EventService {
@@ -57,5 +42,4 @@ public class EventService {
             throw new RuntimeException("Failed to publish event: " + e.getMessage(), e);
         }
     }
-}
 }

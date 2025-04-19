@@ -18,9 +18,14 @@ public class KafkaEventProducer implements EventPublisherPort {
         this.kafkaTemplate = kafkaTemplate;
     }
 
-    @Override
-    public void publish(Event event) {
+@Override
+public void publish(Event event) {
+    ListenableFuture<SendResult<String, String>> future =
         kafkaTemplate.send(event.getEventType(), event.getEventKey(), event.getEventValue());
-        log.info("Published event to Kafka: {}", event);
-    }
+
+    future.addCallback(
+        result -> log.info("Published event to Kafka: {}", event),
+        ex -> log.error("Failed to publish event to Kafka: {}", event, ex)
+    );
+}
 }

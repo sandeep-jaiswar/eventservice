@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.eligius.eventservice.application.service.EventService;
 import com.eligius.eventservice.domain.model.Event;
 
-@RestController("/event")
+@RestController
+@RequestMapping("/event")
 public class EventRestController {
     @Autowired
     private EventService eventService;

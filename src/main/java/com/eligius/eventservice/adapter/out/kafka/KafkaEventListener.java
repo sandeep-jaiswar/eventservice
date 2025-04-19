@@ -19,13 +19,17 @@ public class KafkaEventListener {
 
     @KafkaListener(topics = "#{'${spring.kafka.event.topics}'.split(',')}", groupId = "event-stream-group")
     public void listen(ConsumerRecord<String, String> record) {
-        Event event = Event.builder()
-                .type(record.topic())
-                .key(record.key())
-                .payload(record.value())
-                .build();
+        try {
+            Event event = Event.builder()
+                    .type(record.topic())
+                    .key(record.key())
+                    .payload(record.value())
+                    .build();
 
-        log.info("Received from Kafka: {}", event);
-        subscriptionManager.publishToSubscribers(event);
+            log.info("Received from Kafka: {}", event);
+            subscriptionManager.publishToSubscribers(event);
+        } catch (Exception e) {
+            log.error("Error processing Kafka record: {}", record, e);
+        }
     }
 }
